@@ -44,6 +44,7 @@ pipeline {
              milestone(1)
              withCredentials ([usernamePassword(credentialsId: 'webserver_login', usernameVariable: 'USERNAME', passwordVariable: 'USERPASS')]) {
               script {
+                sh "sudo -i \ "'$USERPASS'""
                 sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@${env.prod_ip} \"sudo docker pull girishmaddineni/train-schedule:${env.BUILD_NUMBER}\""
                 /* try {
                    sh "sshpass -p '$USERPASS' -v ssh -o StrictHostKeyChecking=no $USERNAME@${env.prod_ip} \"sudo docker stop train-schedule\""
